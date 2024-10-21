@@ -1,0 +1,28 @@
+{
+  "name": "resonite",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "ws": "^8.18.0"
+  },
+  "pkg": {
+    "targets": [
+      "node14",
+      "node16",
+      "node18"
+    ],
+    "scripts": "src/*.js",
+    "assets": "src/*.html"
+  },
+  "scripts": {
+    "start": "node .",
+    "build": "pkg src/index.js --targets node16-win-x64 --output resonite-stt.exe && npm run zip",
+    "zip": "tar -a -c -f resonite-stt.zip config.cfg resonite-stt.exe src/index.html"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.1"
+  }
+}
