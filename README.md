@@ -37,6 +37,7 @@ Connect a Resonite WebSocket Client to `ws://localhost:5001` (or whatever you ha
 Install Node.js LTS.
 
 To build run ```npm install``` and ```npm run build```
+
 To run in node do ```npm install``` and ```npm run start```
 
 ## Disclaimer
