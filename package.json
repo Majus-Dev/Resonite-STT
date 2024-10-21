@@ -19,7 +19,8 @@
   },
   "scripts": {
     "start": "node .",
-    "build": "pkg src/index.js --targets node16-win-x64 --output resonite_stt.exe"
+    "build": "pkg src/index.js --targets node16-win-x64 --output resonite-stt.exe && npm run zip",
+    "zip": "tar -a -c -f resonite-stt.zip config.cfg resonite-stt.exe src/index.html"
   },
   "devDependencies": {
     "pkg": "^5.8.1"
