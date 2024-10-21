@@ -1,0 +1,44 @@
+<head><title>Resonite STT</title></head>
+<style>html {background-color: #10141C;color: white; font-family: sans-serif;}</style>
+<div><p id="text">&nbsp;</p></div>
+<div><input type="checkbox" name="outputstreaming" id="outputstreaming"><label for="outputstreaming">outputstreaming</label></div>
+<script>
+    var SpeechRecognition = SpeechRecognition || window.webkitSpeechRecognition
+    var SpeechGrammarList = SpeechGrammarList || window.webkitSpeechGrammarList
+    var SpeechRecognitionEvent = SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
+
+    const ws = new WebSocket('ws://localhost:5001');
+
+    var recognition = new SpeechRecognition();
+
+    recognition.lang = 'en-US';
+    recognition.continous = true;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 1;
+    recognition.start();
+
+    let transcript = ''
+
+    recognition.addEventListener('result', (event) => {
+        var result = event.results[0][0].transcript
+        transcript = `${result}`.toLowerCase();
+        document.getElementById('text').innerText = transcript;
+        if (document.getElementById('outputstreaming').checked && transcript != ''){
+            ws.send(JSON.stringify({"voice_result": transcript}))
+        }
+    })
+    recognition.addEventListener('end', async () => {
+        if (!document.getElementById('outputstreaming').checked && transcript != '') {
+            ws.send(JSON.stringify({"voice_result": transcript}))
+        }
+        else if (document.getElementById('outputstreaming').checked) {
+            ws.send(JSON.stringify({"voice_result": "[speechEnded]"}))
+        }
+        transcript = ''
+        recognition.start();
+    });
+
+    ws.onmessage = (e) => {
+        
+    };
+</script>
