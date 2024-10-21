@@ -23,8 +23,22 @@ The default port for resonite is `5001` and for statically served files is `5000
 
 Google Chrome is required for the speech recognition api
 
+## Usage
+
+Download and extract the latest release from Releases.
+
+Open resonite-stt.exe.
+
+Open Google Chrome to `http://localhost:5000` (or whatever you have changed the port to)
+
+Connect a Resonite WebSocket Client to `ws://localhost:5001` (or whatever you have changed the port to)
+
 ## Building the executable yourself or running in the cli
 Install Node.js LTS.
 
 To build run ```npm install``` and ```npm run build```
 To run in node do ```npm install``` and ```npm run start```
+
+## Disclaimer
+
+This project is not affiliated with Resonite or its staff, nor is it affiliated with Zedaphor, ShadowX, Resonite Voice Bridge or The Neolanders.
