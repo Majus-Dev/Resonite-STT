@@ -43,11 +43,11 @@ function loadConfig() {
     app.use(express.json())
     
     const wss = new WebSocket.Server({port: resoniteport}, () => {
-        console.log("Connect Resonite websocket to ws://localhost:5001")
+        console.log(`Connect Resonite websocket to ws://localhost:${resoniteport}`)
     })
 
     app.listen(hostport, () => {
-        console.log("Go to http://localhost:5000 ")
+        console.log(`Go to http://localhost:${hostport}`)
     })
     
     app.get('/', (req, res) => {
