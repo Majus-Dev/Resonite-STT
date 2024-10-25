@@ -7,12 +7,13 @@ let hostport = 5000;
 let resoniteport = 5001;
 
 let wordreplacementlist = {}
+let isRunning = false;
 
 function loadConfig() {
     fs.readFile('./config.cfg', (err, data) => {
         let rawcfg = data.toString().split(/\r?\n/)
 
-        let hostportconfig = rawcfg.filter((a) => {return a.startsWith('websiteport')})[0]
+        let hostportconfig = rawcfg.filter((a) => {return a.startsWith('hostport')})[0]
         hostport = (''+hostportconfig).split('|')[1] ?? hostport;
 
         let resoniteportconfig = rawcfg.filter((a) => {return a.startsWith('resoniteport')})[0]
@@ -29,6 +30,7 @@ function loadConfig() {
         }
         wordreplacementlist = newwrlist;
         console.log("Config loaded")
+        if(!isRunning)main();
     });
 }
 
@@ -39,6 +41,10 @@ function loadConfig() {
         if (event != 'change') return
         loadConfig();
     });
+})();
+function main() {
+    isRunning = true;
+
     const app = express()
     app.use(express.json())
     
@@ -69,4 +75,4 @@ function loadConfig() {
             }
         })
     })
-})();
+};
